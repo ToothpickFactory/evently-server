@@ -1,0 +1,82 @@
+#%RAML 1.0
+title: Evently
+version: 1
+baseUri: http://evently.io
+types:
+  EventType:
+    type: object
+    properties:
+      id: number
+      optional?: string
+      expanded:
+        type: object
+        properties:
+          count: number
+/events:
+  get:
+    description: Retrieves events
+    queryParameters:
+      rangeStart:
+        displayName: Range Start
+        type: integer
+        description: Retrieves any events greater than the give time
+        required: false
+        example: 1502761954270
+      rangeEnd:
+        displayName: Range End
+        type: integer
+        description: Retrieves any events less than the give time
+        example: 1502761954270
+        required: false
+      clientId:
+        displayName: Clients ID
+        type: string
+        description: ID signifying the origin of the event
+        example: 1q2w3e4r5t
+        required: true
+      title:
+        displayName: Title
+        type: string
+        description: Retrieves all events whos titles contain the search term
+        example: red zone
+        required: false
+      availableSlots:
+        displayName: Available Slots
+        type: integer
+        description: Retrieves events that have avaiable slots equal or greater than the asked value
+        example: 2
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "data" : [EventType]
+              }
+  post:
+    body:
+      application/json:
+        type: object
+    responses:
+      200:
+        body:
+          application/json:
+            type: object
+  /{eventId}:
+    get:
+    put:
+    delete:
+    /clientId:
+    /secondId:
+    /thirdId:
+    /title:
+    /slots:
+    /participants:
+      get:
+      post:
+      delete:
+    /startTime:
+    /webhook:
+    /owner:
+      put:

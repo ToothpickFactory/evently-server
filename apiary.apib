@@ -5,9 +5,9 @@ HOST: http://evently.io/
 
 Evently is a simple API for creating, joining, and managing events
 
-## Events Collection [/events]
+## Events [/events]
 
-### List All Events [GET]
+### List Events [GET]
 
 + Response 200 (application/json)
 
@@ -29,7 +29,7 @@ Evently is a simple API for creating, joining, and managing events
             }
         ]
 
-### Create a New Event [POST]
+### Create Event [POST]
 
 + Request (application/json)
 
@@ -68,3 +68,14 @@ Evently is a simple API for creating, joining, and managing events
                 "participants": [],
                 "webhook": "http://some-address.com/webhook"
             }
+            
+## Event [/events/{eventId}]
+
+### Get Event [GET]
+### Update Event [PUT]
+### Remove Event [DELETE]
+
+## Participants [/events/{eventId}/participants]
+
+### Add Participant [POST]
+### Remove Participant [DELETE]

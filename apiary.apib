@@ -17,12 +17,27 @@ Evently is a simple API for creating, joining, and managing events
                 "clientId":"9i8u7y6t",
                 "secondId": "-erfdwe",
                 "thirdId": "edc-ewq",
-                "title": "Raiding the black zone,
+                "title": "Raiding the black zone",
                 "slots": 10,
                 "startTime": 123,
                 "owner": {
                     "id": "cde3vfr4",
                     "name": "Riotgear66"
+                },
+                "participants": [],
+                "webhook": "http://some-address.com/webhook"
+            },
+            {
+                "_id": "w2q1r4e3",
+                "clientId":"715209",
+                "secondId": null,
+                "thirdId": null,
+                "title": "Creating 2nd event",
+                "slots": 3,
+                "startTime": 852963741,
+                "owner": {
+                    "id": "902517",
+                    "name": "Tom"
                 },
                 "participants": [],
                 "webhook": "http://some-address.com/webhook"
@@ -32,12 +47,115 @@ Evently is a simple API for creating, joining, and managing events
 ### Create Event [POST]
 
 + Request (application/json)
+    
+    + Body
+    
+            {
+                "clientId":"9i8u7y6t",
+                "secondId": "-erfdwe",
+                "thirdId": "edc-ewq",
+                "title": "Raiding the black zone",
+                "slots": 10,
+                "startTime": 123,
+                "owner": {
+                    "id": "cde3vfr4",
+                    "name": "Riotgear66"
+                },
+                "webhook": "http://some-address.com/webhook"
+            }
+    
+        
+    + Schema
 
+            {
+              "$schema": "http://json-schema.org/draft-04/schema#",
+              "type": "object",
+              "properties": {
+                "clientId": {
+                  "type": "string"
+                },
+                "secondId": {
+                  "type": "string"
+                },
+                "thirdId": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "slots": {
+                  "type": "number"
+                },
+                "startTime": {
+                  "type": "number"
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "webhoook": {
+                  "type": "string"
+                }
+              }
+            }
+
++ Response 201 (application/json)
+    
         {
+            "_id": "1q2w3e4r",
             "clientId":"9i8u7y6t",
             "secondId": "-erfdwe",
             "thirdId": "edc-ewq",
-            "title": "Raiding the black zone,
+            "title": "Raiding the black zone",
+            "slots": 10,
+            "startTime": 123,
+            "owner": {
+                "id": "cde3vfr4",
+                "name": "Riotgear66"
+            },
+            "participants": [],
+            "webhook": "http://some-address.com/webhook"
+        }
+            
+## Event [/events/{event_id}]
++ Parameters
+    + event_id (string) - ID of the requested event
+    
+### Get Event [GET]
++ Response 200 (application/json)
+    
+            {
+                "_id": "1q2w3e4r",
+                "clientId":"9i8u7y6t",
+                "secondId": "-erfdwe",
+                "thirdId": "edc-ewq",
+                "title": "Raiding the black zone",
+                "slots": 10,
+                "startTime": 123,
+                "owner": {
+                    "id": "cde3vfr4",
+                    "name": "Riotgear66"
+                },
+                "participants": [],
+                "webhook": "http://some-address.com/webhook"
+            }
+
+### Update Event [PUT]
++ Response 200 (application/json)
+    
+        {
+            "_id": "1q2w3e4r",
+            "clientId":"9i8u7y6t",
+            "secondId": "-erfdwe",
+            "thirdId": "edc-ewq",
+            "title": "Raiding the black zone",
             "slots": 10,
             "startTime": 123,
             "owner": {
@@ -48,42 +166,38 @@ Evently is a simple API for creating, joining, and managing events
             "webhook": "http://some-address.com/webhook"
         }
 
-+ Response 201 (application/json)
-
-
-    + Body
-
-            {
-                "_id": "1q2w3e4r",
-                "clientId":"9i8u7y6t",
-                "secondId": "-erfdwe",
-                "thirdId": "edc-ewq",
-                "title": "Raiding the black zone,
-                "slots": 10,
-                "startTime": 123,
-                "owner": {
-                    "id": "cde3vfr4",
-                    "name": "Riotgear66"
-                },
-                "participants": [],
-                "webhook": "http://some-address.com/webhook"
-            }
-            
-## Event [/events/{eventId}]
-
-### Get Event [GET]
-+ Response 200 (application/json)
-
-### Update Event [PUT]
-+ Response 200 (application/json)
-
 ### Remove Event [DELETE]
-+ Response 200 (application/json)
-
++ Response 204 (application/json)
+    
 ## Participants [/events/{eventId}/participants]
 
 ### Add Participant [POST]
-+ Response 200 (application/json)
++ Request (application/json)
+    
+        {
+            "id": "1q2w3e4r",
+            "name": "iFatebringer"
+        }
+        
++ Response 201 (application/json)
+    
+        {
+            "_id": "1q2w3e4r",
+            "clientId":"9i8u7y6t",
+            "secondId": "-erfdwe",
+            "thirdId": "edc-ewq",
+            "title": "Raiding the black zone",
+            "slots": 10,
+            "startTime": 123,
+            "owner": {
+                "id": "cde3vfr4",
+                "name": "Riotgear66"
+            },
+            "participants": [],
+            "webhook": "http://some-address.com/webhook"
+        }
+
+## Participant [/events/{eventId}/participants/{participantId}]
 
 ### Remove Participant [DELETE]
-+ Response 200 (application/json)
++ Response 204 (application/json)

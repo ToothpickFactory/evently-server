@@ -1,27 +1,4 @@
-const Validator = require("jsonschema").Validator;
-
-let validator = new Validator();
-
-let personSchema = {
-	"id": "/Person",
-	"type": "object",
-	"properties": {
-		"id": {
-			"type": "string",
-			"required": true,
-			"minLength": 1,
-			"maxLength": 25
-		},
-		"name": {
-			"type": "string",
-			"required": true,
-			"minLength": 1,
-			"maxLength": 25
-		}
-	}
-}
-
-let eventSchema = {
+const schema = {
 	"id": "/Event",
 	"type": "object",
 	"properties": {
@@ -69,6 +46,4 @@ let eventSchema = {
 	}
 }
 
-validator.addSchema(personSchema, "/Person");
-
-validator.validate(event, eventSchema);
+module.exports = schema;

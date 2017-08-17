@@ -9,16 +9,17 @@ Evently is a simple API for creating, joining, and managing events
 
 ### List Events [GET]
 
-+ Headers
++ Request
 
-        Authorization: Bearer <token>
+    + Headers
+    
+            Authorization: Bearer <token>
 
 + Response 200 (application/json)
 
         [
             {
                 "_id": "1q2w3e4r",
-                "clientId":"9i8u7y6t",
                 "secondId": "-erfdwe",
                 "thirdId": "edc-ewq",
                 "title": "Raiding the black zone",
@@ -49,17 +50,123 @@ Evently is a simple API for creating, joining, and managing events
         ]
 
 ### Create Event [POST]
-
-+ Headers
-
-        Authorization: Bearer <token>
         
 + Request (application/json)
+    + Headers
+    
+            Authorization: Bearer <token>
     
     + Body
     
             {
-                "clientId":"9i8u7y6t",
+                "secondId": "-erfdwe",
+                "thirdId": "edc-ewq",
+                "title": "Raiding the black zone",
+                "slots": 10,
+                "startTime": 123,
+                "owner": {
+                    "id": "cde3vfr4",
+                    "name": "Riotgear66"
+                },
+                "webhook": "http://some-address.com/webhook"
+            }
+    
+        
+    + Schema
+
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "title": "Event",
+                "description": "Event structure and properties",
+                "type": "object",
+                "properties": {
+                    "secondId": {
+                      "type": "string"
+                    },
+                    "thirdId": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "slots": {
+                      "type": "number"
+                    },
+                    "startTime": {
+                      "type": "number"
+                    },
+                    "owner": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "webhoook": {
+                      "type": "string"
+                    }
+              }
+            }
+
++ Response 201 (application/json)
+    
+        {
+            "_id": "1q2w3e4r",
+            "secondId": "-erfdwe",
+            "thirdId": "edc-ewq",
+            "title": "Raiding the black zone",
+            "slots": 10,
+            "startTime": 123,
+            "owner": {
+                "id": "cde3vfr4",
+                "name": "Riotgear66"
+            },
+            "participants": [],
+            "webhook": "http://some-address.com/webhook"
+        }
+            
+## Event [/events/{event_id}]
++ Parameters
+    + event_id (string) - ID of the requested event
+    
+### Get Event [GET]
++ Request
+
+    + Headers
+    
+            Authorization: Bearer <token>
+            
++ Response 200 (application/json)
+    
+            {
+                "_id": "1q2w3e4r",
+                "secondId": "-erfdwe",
+                "thirdId": "edc-ewq",
+                "title": "Raiding the black zone",
+                "slots": 10,
+                "startTime": 123,
+                "owner": {
+                    "id": "cde3vfr4",
+                    "name": "Riotgear66"
+                },
+                "participants": [],
+                "webhook": "http://some-address.com/webhook"
+            }
+
+### Update Event [PUT]
++ Request (application/json)
+    
+    + Headers
+    
+            Authorization: Bearer <token>
+    
+    + Body
+    
+            {
                 "secondId": "-erfdwe",
                 "thirdId": "edc-ewq",
                 "title": "Raiding the black zone",
@@ -79,9 +186,6 @@ Evently is a simple API for creating, joining, and managing events
               "$schema": "http://json-schema.org/draft-04/schema#",
               "type": "object",
               "properties": {
-                "clientId": {
-                  "type": "string"
-                },
                 "secondId": {
                   "type": "string"
                 },
@@ -113,12 +217,10 @@ Evently is a simple API for creating, joining, and managing events
                 }
               }
             }
-
 + Response 201 (application/json)
     
         {
             "_id": "1q2w3e4r",
-            "clientId":"9i8u7y6t",
             "secondId": "-erfdwe",
             "thirdId": "edc-ewq",
             "title": "Raiding the black zone",
@@ -131,67 +233,36 @@ Evently is a simple API for creating, joining, and managing events
             "participants": [],
             "webhook": "http://some-address.com/webhook"
         }
-            
-## Event [/events/{event_id}]
-+ Parameters
-    + event_id (string) - ID of the requested event
-    
-### Get Event [GET]
-+ Response 200 (application/json)
-    
-            {
-                "_id": "1q2w3e4r",
-                "clientId":"9i8u7y6t",
-                "secondId": "-erfdwe",
-                "thirdId": "edc-ewq",
-                "title": "Raiding the black zone",
-                "slots": 10,
-                "startTime": 123,
-                "owner": {
-                    "id": "cde3vfr4",
-                    "name": "Riotgear66"
-                },
-                "participants": [],
-                "webhook": "http://some-address.com/webhook"
-            }
-
-### Update Event [PUT]
-+ Response 200 (application/json)
-    
-        {
-            "_id": "1q2w3e4r",
-            "clientId":"9i8u7y6t",
-            "secondId": "-erfdwe",
-            "thirdId": "edc-ewq",
-            "title": "Raiding the black zone",
-            "slots": 10,
-            "startTime": 123,
-            "owner": {
-                "id": "cde3vfr4",
-                "name": "Riotgear66"
-            },
-            "participants": [],
-            "webhook": "http://some-address.com/webhook"
-        }
-
+        
 ### Remove Event [DELETE]
++ Request
+
+    + Headers
+    
+            Authorization: Bearer <token>
+            
 + Response 204 (application/json)
     
 ## Participants [/events/{eventId}/participants]
 
 ### Add Participant [POST]
 + Request (application/json)
+
+    + Headers
     
-        {
-            "id": "1q2w3e4r",
-            "name": "iFatebringer"
-        }
+            Authorization: Bearer <token>
+    
+    + Body
+        
+            {
+                "id": "1q2w3e4r",
+                "name": "iFatebringer"
+            }
         
 + Response 201 (application/json)
     
         {
             "_id": "1q2w3e4r",
-            "clientId":"9i8u7y6t",
             "secondId": "-erfdwe",
             "thirdId": "edc-ewq",
             "title": "Raiding the black zone",
@@ -208,4 +279,51 @@ Evently is a simple API for creating, joining, and managing events
 ## Participant [/events/{eventId}/participants/{participantId}]
 
 ### Remove Participant [DELETE]
-+ Response 204 (application/json)
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: Bearer <token>
+            
++ Response 204
+
+## Data Structures
+
+### Event
+    {
+        "title": "Event",
+        "$schema": "http://json-schema.org/draft-04/schema#",
+        "description": "Event structure and properties",
+        "type": "object",
+        "properties": {
+            "secondId": {
+              "type": "string"
+            },
+            "thirdId": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "slots": {
+              "type": "number"
+            },
+            "startTime": {
+              "type": "number"
+            },
+            "owner": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            },
+            "webhoook": {
+              "type": "string"
+            }
+      }
+    }

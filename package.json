@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "test": "mocha src/test/runAll.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,5 +22,10 @@
     "request": "^2.81.0",
     "shortid": "^2.2.8"
   },
-  "dev-dependencies": {}
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^3.5.0",
+    "request-promise": "^4.2.1"
+  }
 }

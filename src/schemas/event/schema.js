@@ -15,7 +15,7 @@ const schema = {
 			"title": {
 				"type": "string",
 				"required": true,
-				"minLength": 1,
+				"minLength": 4,
 				"maxLength": 25
 			},
 			"slots": {

@@ -4,25 +4,29 @@ const chai            = require("chai"),
       chaiHttp				= require('chai-http');
 
 const core = require("../../test/testData/core.json");
-const generateEvent = require("../../test/helpers/generateEvent");
+const composeEvent = require("../../test/helpers/composeEvent");
 const removeEventTests = require("../../test/helpers/removeEventTests");
 
 chai.should();
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
-describe('Get Events', function() {
+describe('Create Event', function() {
 
-	before(() => generateEvent());
 	after(() => removeEventTests(core.clientIds.clientId1));
 
-	describe('#GET /events', function() {
-	  it('should return a list of events', function() {
+	describe('#CREATE /events', function() {
+	  it('should return a new event', function() {
+			
+			let event = composeEvent();
+			
 			return chai.request(core.urls.evently)
-				.get(`/events/`)
+				.post(`/events`)
+				.send(event)
 				.then(res => {
-					expect(res.body).to.be.an("array");
+					expect(res.body).to.have.property("_id");
 				});
+
 	  });
 	});
 

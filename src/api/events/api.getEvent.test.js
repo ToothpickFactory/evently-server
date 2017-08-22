@@ -11,18 +11,20 @@ chai.should();
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
-describe('Get Events', function() {
-
-	before(() => generateEvent());
+describe('Get Event', function() {
+	let _event;
+	before(() => generateEvent().then(event => _event = event));
 	after(() => removeEventTests(core.clientIds.clientId1));
 
-	describe('#GET /events', function() {
-	  it('should return a list of events', function() {
+	describe('#GET /event/:eventId', function() {
+	  it('should return a single event', function() {
+
 			return chai.request(core.urls.evently)
-				.get(`/events/`)
+				.get(`/events/${_event._id}`)
 				.then(res => {
-					expect(res.body).to.be.an("array");
+					expect(res.body).to.have.property("_id");
 				});
+
 	  });
 	});
 

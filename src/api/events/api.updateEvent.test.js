@@ -11,19 +11,23 @@ chai.should();
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
-describe('Get Events', function() {
-
-	before(() => generateEvent());
+describe('Update Event', function() {
+	let _event;
+	before(() => generateEvent().then(event => _event = event));
 	after(() => removeEventTests(core.clientIds.clientId1));
 
-	describe('#GET /events', function() {
-	  it('should return a list of events', function() {
-			return chai.request(core.urls.evently)
-				.get(`/events/`)
-				.then(res => {
-					expect(res.body).to.be.an("array");
-				});
-	  });
-	});
+	describe('#PUT /event/:eventId', function() {
+	  it('should update event name', function() {
+			let newTitle = "Mr McTesty";
+			let newIshEvent = Object.assign({}, _event, {title: newTitle});
 
+			return chai.request(core.urls.evently)
+				.put(`/events/${_event._id}`)
+				.send(newIshEvent)
+				.then(res => {
+					expect(res.body.value).to.have.property("title").that.equals(newTitle);
+				});
+
+			});
+	});
 });

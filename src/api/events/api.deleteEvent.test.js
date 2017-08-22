@@ -11,19 +11,18 @@ chai.should();
 chai.use(chaiAsPromised);
 chai.use(chaiHttp);
 
-describe('Get Events', function() {
-
-	before(() => generateEvent());
+describe('Delete Event', function() {
+	let _event;
+	before(() => generateEvent().then(event => _event = event));
 	after(() => removeEventTests(core.clientIds.clientId1));
 
-	describe('#GET /events', function() {
-	  it('should return a list of events', function() {
+	describe('#DELETE /event/:eventId', function() {
+	  it('should delete event', function() {
 			return chai.request(core.urls.evently)
-				.get(`/events/`)
+				.delete(`/events/${_event._id}`)
 				.then(res => {
-					expect(res.body).to.be.an("array");
-				});
+					expect(res).to.have.status(200);
+				})
 	  });
 	});
-
 });

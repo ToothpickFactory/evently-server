@@ -6,7 +6,7 @@ const validator = new Validator();
 validator.addSchema(PersonSchema, "/Person");
 
 const validate = function(event){
-	return validator.validate(event, eventSchema);
+	return validator.validate(event, EventSchema);
 }
 
 module.exports = validate;

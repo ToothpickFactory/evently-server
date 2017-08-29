@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "test": "mocha src/test/runAll.js"
+    "test": "mocha ./src/**/test.js"
   },
   "author": "",
   "license": "ISC",

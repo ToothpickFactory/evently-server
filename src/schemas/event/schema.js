@@ -2,6 +2,9 @@ const schema = {
 	"id": "/Event",
 	"type": "object",
 	"properties": {
+			"_id": {
+				"type": "string"
+			},
 			"secondId": {
 				"type": "string",
 				"minLength": 1,

@@ -1,12 +1,13 @@
+const appRootDir			= require('app-root-dir').get();
 const chai            = require("chai");
 const chaiAsPromised  = require("chai-as-promised");
 const expect          = chai.expect;
 const chaiHttp				= require('chai-http');
 
-const core = require("../../test/testData/core.json");
-const generateEvent = require("../../test/helpers/generateEvent");
-const removeEventTests = require("../../test/helpers/removeEventTests");
-const joinEvent = require("../../modules/events/joinEvent");
+const core = require(appRootDir + "/src/test/testData/core.json");
+const generateEvent = require(appRootDir + "/src/test/helpers/generateEvent");
+const removeEventTests = require(appRootDir + "/src/test/helpers/removeEventTests");
+const joinEvent = require(appRootDir + "/src/modules/events/joinEvent");
 
 chai.should();
 chai.use(chaiAsPromised);

@@ -1,4 +1,5 @@
-const db = require('../../connections/mongo');
+const appRootDir	= require('app-root-dir').get();
+const db          = require(appRootDir + '/src/connections/mongo');
 
 module.exports = function(rawQuery = {}){
   let query = queryBuilder(rawQuery);

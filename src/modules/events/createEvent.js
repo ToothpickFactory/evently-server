@@ -1,9 +1,9 @@
 const shortid       = require('shortid');
-const db            = require('../../connections/mongo');
-const validateEvent = require('./validateEvent');
+const appRootDir    = require('app-root-dir').get();
+const validateEvent = require(appRootDir + "/src/schemas/event/validator");
+const db            = require(appRootDir + '/src/connections/mongo');
 
 module.exports = function(event){
-
     let newEvent = {
         "_id": shortid.generate(),
         "clientId":event.clientId,
@@ -20,6 +20,6 @@ module.exports = function(event){
         "webhook": event.webhook
     }
 
-    return validateEvent(newEvent)
-        .then(validatedEvent => db.events.insert(validatedEvent));
+    let result = validateEvent(newEvent);
+    return result.errors.length ? Promise.reject(result.errors) : db.events.insert(newEvent);
 }

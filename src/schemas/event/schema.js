@@ -5,12 +5,12 @@ const schema = {
 			"_id": {
 				"type": "string"
 			},
-			"secondId": {
+			"category": {
 				"type": "string",
 				"minLength": 1,
 				"maxLength": 25
 			},
-			"thirdId": {
+			"subcategory": {
 				"type": "string",
 				"minLength": 1,
 				"maxLength": 25

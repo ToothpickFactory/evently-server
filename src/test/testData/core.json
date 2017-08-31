@@ -24,5 +24,11 @@
 	},
 	"webhooks": {
 		"webhook1": "http://myeventhook.com/webhook"
+	},
+	"accounts": {
+		"account1": {
+			"email": "bob@builder.com",
+			"password": "1q2w3e4r5t"
+		}
 	}
 }

@@ -2,5 +2,8 @@
 	"port": 8000,
 	"mongo": {
 		"db": "evently"
+	},
+	"jwt": {
+		"key": "dontDoDrugs"
 	}
 }

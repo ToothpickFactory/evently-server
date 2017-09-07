@@ -7,6 +7,9 @@ module.exports = (app) => {
 	app.get('/events', (req, res) => {
 		EventsModule.getEvents()
 			.then(events => res.send(events))
-			.catch(err => errRes(err, res))
+			.catch(err => {
+				console.log(err)
+				errRes(err, res);
+			})
 	});
 };

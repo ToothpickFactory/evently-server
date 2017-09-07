@@ -1,9 +1,12 @@
 const appRootDir	= require('app-root-dir').get();
-const db          = require(appRootDir + '/src/connections/mongo');
+const Mongo       = require(appRootDir + '/src/connections/mongo');
 
-module.exports = function(rawQuery = {}){
+module.exports = async function(rawQuery = {}){
   let query = queryBuilder(rawQuery);
-  return db.events.find(query);
+  let db = await Mongo.getDB();
+  let documents = await db.collection('events').find(query).toArray();
+  db.close();
+  return documents;
 }
 
 function queryBuilder(rawQuery){

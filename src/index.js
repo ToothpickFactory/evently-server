@@ -9,6 +9,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 require('./api')(app);
-require('./crons');
+// require('./crons');
 
 app.listen(config.port, () => { console.log(`Sample App listing on port: ${config.port}`) });

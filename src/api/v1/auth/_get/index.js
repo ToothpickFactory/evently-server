@@ -8,10 +8,7 @@ module.exports = (app) => {
 	app.get('/auth', (req, res) => {
 			let authData = auth(req);
 			AuthModule.credentialExchange(authData)
-				.then((token) => {
-					console.log(token)
-					res.send(token);
-				})
+				.then((token) => res.send(token))
 				.catch(err => errRes(err, res));
 	});
 };

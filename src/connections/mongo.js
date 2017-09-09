@@ -1,16 +1,15 @@
 const config      = require('config');
 const MongoClient = require('mongodb').MongoClient;
 
+let _db;
+
+async function connect(){
+	_db = await MongoClient.connect(config.mongo.db);
+	return _db;
+}
+
 async function getDB(){
-	return MongoClient.connect(config.mongo.db);
+	return _db ? Promise.resolve(_db) : await connect();
 }
 
 module.exports = { getDB }
-
-
-// const pmongo      = require('promised-mongo');
-// const config      = require('config');
-
-// let db = pmongo(config.mongo.db, ['events']);
-
-// module.exports = db;

@@ -1,9 +1,10 @@
 const shortid       = require('shortid');
 const appRootDir    = require('app-root-dir').get();
 const validateEvent = require(appRootDir + "/src/schemas/event/validator");
-const db            = require(appRootDir + '/src/connections/mongo');
+const Mongo         = require(appRootDir + '/src/connections/mongo');
 
-module.exports = function(event){
+module.exports = async function(event){
+    let db = await Mongo.getDB();
     let newEvent = {
         "_id": shortid.generate(),
         "clientId":event.clientId,
@@ -21,5 +22,10 @@ module.exports = function(event){
     }
 
     let result = validateEvent(newEvent);
-    return result.errors.length ? Promise.reject(result.errors) : db.events.insert(newEvent);
+    if( result.errors.length ){
+        return Promise.reject(result.errors);
+    } else {
+        let dbRes = await db.collection('events').insert(newEvent);
+        return dbRes.ops[0];
+    }
 }

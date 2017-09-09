@@ -26,7 +26,7 @@ describe('Update Event', function() {
 				.put(`/events/${_event._id}`)
 				.send(newIshEvent)
 				.then(res => {
-					expect(res.body.value).to.have.property("title").that.equals(newTitle);
+					expect(res.body).to.have.property("title").that.equals(newTitle);
 				});
 
 			});

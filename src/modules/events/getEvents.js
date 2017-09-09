@@ -5,7 +5,6 @@ module.exports = async function(rawQuery = {}){
   let query = queryBuilder(rawQuery);
   let db = await Mongo.getDB();
   let documents = await db.collection('events').find(query).toArray();
-  db.close();
   return documents;
 }
 

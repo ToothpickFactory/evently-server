@@ -1,8 +1,9 @@
 const appRootDir	= require('app-root-dir').get();
-const db          = require(appRootDir + '/src/connections/mongo');
+const Mongo       = require(appRootDir + '/src/connections/mongo');
 
-function removeByClientId(clientId){
-	return db.events.remove({clientId});
+async function removeByClientId(clientId){
+	let db = await Mongo.getDB();
+	return db.collection('events').remove({clientId});
 }
 
 module.exports = removeByClientId;

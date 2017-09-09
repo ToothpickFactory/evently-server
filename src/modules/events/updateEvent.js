@@ -1,10 +1,19 @@
 const appRootDir    = require('app-root-dir').get();
 const shortid       = require('shortid');
 const validateEvent = require(appRootDir + "/src/schemas/event/validator");
-const db            = require(appRootDir + '/src/connections/mongo');
+const Mongo         = require(appRootDir + '/src/connections/mongo');
 
+async function doUpdate(_id, updatedEvent) {
+    let db = await Mongo.getDB();
+    let query = { _id }; 
+    let sort = [];
+    let update = updatedEvent;
+    let options = { new: true };
+    let dbRes = await db.collection('events').findAndModify(query, sort, update, options);
+    return dbRes.value;
+}
 
-module.exports = function(_id, event){
+async function updateEvent(_id, event) {
     let updatedEvent = {
         "clientId":event.clientId,
         "secondId": event.secondId,
@@ -19,18 +28,10 @@ module.exports = function(_id, event){
         "participants": event.participants || [],
         "webhook": event.webhook
     }
-
     let result = validateEvent(updatedEvent);
-
-    if(result.errors.length){
-        return Promise.reject(result.errors);
-    } else {
-        return db.events.findAndModify({
-            query: {_id},
-            update: updatedEvent,
-            new: true
-        });
-    }
+    return result.errors.length ? Promise.reject(result.errors) : doUpdate(_id, updatedEvent);
 }
+
+module.exports = updateEvent;
 
 

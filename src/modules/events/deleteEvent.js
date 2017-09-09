@@ -1,13 +1,15 @@
 const appRootDir	= require('app-root-dir').get();
-const db            = require(appRootDir + '/src/connections/mongo');
+const Mongo         = require(appRootDir + '/src/connections/mongo');
 const callHook      = require(appRootDir + '/src/modules/webhooks/callHook');
 
-module.exports = function(_id){
-    return db.events.findAndModify({
-        query: {_id},
-        remove: true,
-        new: false
-    }).then(DBRes => {
-        callHook("EVENT_REMOVED", DBRes.value);
-    });
+module.exports = async function(_id){
+    let db = await Mongo.getDB();
+    let query = {_id};
+    let sort = [];
+    let update = {remove: true};
+    let options = {new: false};
+
+    let DBRes = await db.collection('events').findAndModify(query, sort, update, options);
+    callHook("EVENT_REMOVED", DBRes.value);
+    return DBRes;
 }

@@ -9,7 +9,10 @@ module.exports = (app) => {
 		let id = req.params.id;
 		EventsModule.deleteEvent(id)
 			.then(() => res.send())
-			.catch(err => errRes(err, res))
+			.catch(err => {
+				console.log(err)
+				errRes(err, res)
+			})
 	});
 
 };

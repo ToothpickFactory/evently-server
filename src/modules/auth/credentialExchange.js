@@ -1,9 +1,9 @@
-const config				= require("config");
+const config		= require("config");
 const appRootDir    = require('app-root-dir').get();
 const Mongo         = require(appRootDir + '/src/connections/mongo');
 const codes         = require(appRootDir + '/src/modules/codes');
-const crypto				= require('crypto');
-const jwt						= require('jsonwebtoken');
+const crypto		= require('crypto');
+const jwt			= require('jsonwebtoken');
 
 
 async function credentialExchange (authData) {

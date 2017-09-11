@@ -1,6 +1,10 @@
 const schedule = require('node-schedule');
 const webhooks = require('../modules/webhooks');
- 
-schedule.scheduleJob('*/1 * * * *', function(){
-	webhooks.startingSoon();
-});
+
+function crons () {
+	schedule.scheduleJob('*/1 * * * *', function(){
+		webhooks.startingSoon();
+	});
+}
+
+module.exports = crons;

@@ -31,4 +31,14 @@ describe('Update Event', function() {
 
 			});
 	});
+
+	it('should update the tags in the event', function() {
+		let newIshEvent = Object.assign({}, _event, {tags: core.tags.tags1});
+		return chai.request(core.urls.evently)
+			.put(`/events/${_event._id}`)
+			.send(newIshEvent)
+			.then(res => {
+				expect(res.body).to.have.property("tags").that.contains(core.tags.tags1[0]);
+			});
+		});
 });

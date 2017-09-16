@@ -5,15 +5,13 @@ const schema = {
 			"_id": {
 				"type": "string"
 			},
-			"category": {
-				"type": "string",
-				"minLength": 1,
-				"maxLength": 25
-			},
-			"subcategory": {
-				"type": "string",
-				"minLength": 1,
-				"maxLength": 25
+			"tags": {
+				"type": "array",
+				"items": {
+					"type": "string",
+					"minLength": 1,
+					"maxLength": 25
+				}
 			},
 			"title": {
 				"type": "string",

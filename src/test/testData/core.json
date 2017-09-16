@@ -30,5 +30,8 @@
 			"email": "bob@builder.com",
 			"password": "1q2w3e4r5t"
 		}
+	},
+	"tags": {
+		"tags1": ["Do", "The", "things"]
 	}
 }

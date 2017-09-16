@@ -18,13 +18,37 @@ describe('Get Events', function() {
 	after(() => removeEventTests(core.clientIds.clientId1));
 
 	describe('#GET /events', function() {
-	  it('should return a list of events', function() {
+		it('should return a list of events', function() {
+				return chai.request(core.urls.evently)
+					.get(`/events/`)
+					.then(res => {
+						expect(res.body).to.be.an("array");
+					});
+		});
+	});
+
+	describe('#GET /events?tags=test', function() {
+		before(() => generateEvent({tags: ['foo']}));
+		before(() => generateEvent({tags: ['foo', 'bar']}));
+		
+		it('should return 2 events by tags query', function() {
 			return chai.request(core.urls.evently)
 				.get(`/events/`)
+				.query({tags: ['foo']})
 				.then(res => {
-					expect(res.body).to.be.an("array");
+					expect(res.body.length).to.equal(2);
 				});
-	  });
+		});
+
+		it('should return 1 events by tags query', function() {
+			return chai.request(core.urls.evently)
+				.get(`/events/`)
+				.query({tags: ['foo', 'bar']})
+				.then(res => {
+					expect(res.body.length).to.equal(1);
+				});
+		});
 	});
+
 
 });

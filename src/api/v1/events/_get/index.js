@@ -5,11 +5,9 @@ const errRes = require(appRootDir + "/src/util/errRes");
 // Routes
 module.exports = (app) => {
 	app.get('/events', (req, res) => {
-		EventsModule.getEvents()
+		let query = req.query;
+		EventsModule.getEvents(query)
 			.then(events => res.send(events))
-			.catch(err => {
-				console.log(err)
-				errRes(err, res);
-			})
+			.catch(err => errRes(err, res))
 	});
 };

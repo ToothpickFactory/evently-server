@@ -1,6 +1,6 @@
 const core = require("../testData/core.json");
 
-function composeEvent(){
+function composeEvent(fields = {}){
 	let event = {
 		"clientId": core.clientIds.clientId1,
 		"title": core.titles.title1,
@@ -10,8 +10,8 @@ function composeEvent(){
 		"webhook": core.webhooks.webhook1
 	}
 
-let cp_event = Object.assign({}, event)
-return cp_event;	
+	let cp_event = Object.assign({}, event, fields)
+	return cp_event;
 }
 
 module.exports = composeEvent;

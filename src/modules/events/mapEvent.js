@@ -7,6 +7,7 @@ function buildOwner (rawOwner) {
 	}
 }
 
+
 function mapEvent (rawEvent, id) {
 	let event = {};
 
@@ -16,7 +17,7 @@ function mapEvent (rawEvent, id) {
 	event.slots = rawEvent.slots || 10;
 	event.startTime = rawEvent.startTime || Date.now() + 300000;
 	event.participants = rawEvent.participants || [];
-	event.tags = rawEvent.tags || [];
+	event.tags = (rawEvent.tags || []).forEach(tag => tag.trime());
 	event.webhook = rawEvent.webhook;
 	event.owner = rawEvent.owner ? buildOwner(rawEvent.owner) : null
 	

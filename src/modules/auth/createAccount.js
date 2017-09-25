@@ -1,12 +1,12 @@
-const shortid       = require('shortid');
-const crypto		= require('crypto');
-const appRootDir    = require('app-root-dir').get();
-const validateEvent = require(appRootDir + "/src/schemas/account/validator");
-const Mongo         = require(appRootDir + '/src/connections/mongo');
+const shortid       	= require('shortid');
+const crypto			= require('crypto');
+const appRootDir    	= require('app-root-dir').get();
+const validateAccount 	= require(appRootDir + "/src/schemas/account/validator");
+const Mongo         	= require(appRootDir + '/src/connections/mongo');
 
 async function createAccount (email, password) {
 	let db = await Mongo.getDB();
-	let result = validateEvent({email, password});
+	let result = validateAccount({email, password});
 
 	if(result.errors.length) return Promise.reject(result.errors);
 

@@ -10,6 +10,9 @@ module.exports = (app) => {
 		
 			AuthModule.createAccount(email, password)
 				.then(() => res.send())
-				.catch(err => errRes(err, res));
+				.catch(err => {
+					let msg = err.code === 11000 ? 'Account Already Exists': 'Something bad has happened';
+					errRes(msg, res)
+				})
 	});
 };

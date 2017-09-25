@@ -5,6 +5,9 @@ const schema = {
 			"_id": {
 				"type": "string"
 			},
+			"client_id": {
+				"type": "string"
+			},
 			"tags": {
 				"type": "array",
 				"items": {

@@ -12,7 +12,7 @@ async function createAccount (email, password) {
 
 	let account = {
 		_id: shortid.generate(),
-		email: email,
+		email: email.toUpperCase(),
 		password: crypto.createHash("SHA1").update(password).digest('hex')
 	}
 

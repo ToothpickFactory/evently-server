@@ -26,7 +26,6 @@ describe('Leave Event', function() {
 
 	describe('#DELETE /events/:id/participants/:userId', function() {
 	  it('should remove user from event', function() {
-			
 			return chai.request(core.urls.evently)
 				.delete(`/events/${_event._id}/participants/${cp_user.id}`)
 				.then(res => {

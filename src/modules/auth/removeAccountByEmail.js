@@ -3,7 +3,7 @@ const Mongo         = require(appRootDir + '/src/connections/mongo');
 
 async function removeAccountByEmail (email) {
 	let db = await Mongo.getDB();
-	return db.collection('accounts').remove({email});
+	return db.collection('accounts').remove({email: email.toUpperCase()});
 }
 
 module.exports = removeAccountByEmail;

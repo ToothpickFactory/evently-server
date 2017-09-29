@@ -6,13 +6,15 @@ const crypto		= require('crypto');
 const jwt			= require('jsonwebtoken');
 
 
-async function credentialExchange (authData) {
+async function credentialExchange (email, password) {
 	let db = await Mongo.getDB();
-	if(!authData) return Promise.reject(codes.credentialsRequired());
+	if(!email || !password) return Promise.reject(codes.credentialsRequired());
 	let account = {
-		email: authData.name,
-		password: crypto.createHash("SHA1").update(authData.pass).digest('hex')
+		email: email.toUpperCase(),
+		password: crypto.createHash("SHA1").update(password).digest('hex')
 	}
+
+	console.log(account)
 
 	return db.collection('accounts').findOne(account, {_id: 1})
 		.then(dbRes => {

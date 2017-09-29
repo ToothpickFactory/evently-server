@@ -7,7 +7,9 @@ const auth = require('basic-auth')
 module.exports = (app) => {
 	app.get('/auth', (req, res) => {
 			let authData = auth(req);
-			AuthModule.credentialExchange(authData)
+			let email = authData.name;
+			let password = authData.pass;
+			AuthModule.credentialExchange(email, password)
 				.then((token) => res.send(token))
 				.catch(err => errRes(err, res));
 	});

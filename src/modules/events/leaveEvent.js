@@ -3,7 +3,6 @@ const Mongo         = require(appRootDir + '/src/connections/mongo');
 const codes         = require('../codes');
 
 module.exports = async function(_id, userId){
-    userId = userId.toUpperCase();
     let db = await Mongo.getDB();
     let query = { _id, 'participants.id': {$eq: userId} }; 
     let sort = [];

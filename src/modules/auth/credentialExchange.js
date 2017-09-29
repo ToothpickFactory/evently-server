@@ -21,6 +21,10 @@ async function credentialExchange (email, password) {
 			let token = jwt.sign(dbRes, config.jwt.key);
 			return {token};
 		})
+		.catch(err => {
+			console.log(err);
+			return Promise.reject(err)
+		})
 }
 
 module.exports = credentialExchange;

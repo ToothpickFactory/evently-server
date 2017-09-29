@@ -14,15 +14,12 @@ async function credentialExchange (email, password) {
 		password: crypto.createHash("SHA1").update(password).digest('hex')
 	}
 
-	console.log(account)
-
 	return db.collection('accounts').findOne(account, {_id: 1})
 		.then(dbRes => {
 			let token = jwt.sign(dbRes, config.jwt.key);
 			return {token};
 		})
 		.catch(err => {
-			console.log(err);
 			return Promise.reject(err)
 		})
 }

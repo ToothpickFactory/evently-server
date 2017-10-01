@@ -17,6 +17,9 @@ Mongo.getDB()
 		crons();
 		app.listen(config.port, () => { console.log(`Evently running on port: ${config.port}`) });
 	})
-	.catch(() => console.log('Server was unable to start'))
+	.catch((err) => {
+		console.log(err)
+		console.log('Server was unable to start');
+	})
 
 

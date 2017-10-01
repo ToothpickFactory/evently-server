@@ -6,7 +6,8 @@ const errRes = require(appRootDir + "/src/util/errRes");
 module.exports = (app) => {
 	app.get('/events/:id', (req, res) => {
 		let id = req.params.id;
-		EventsModule.getEvent(id)
+		let clientId = req.auth._id;
+		EventsModule.getEvent(id, clientId)
 			.then(event => res.send(event))
 			.catch(err => errRes(err, res))
 	});

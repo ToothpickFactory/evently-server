@@ -4,9 +4,9 @@ const validateEvent = require(appRootDir + '/src/schemas/event/validator');
 const Mongo         = require(appRootDir + '/src/connections/mongo');
 const mapEvent      = require('./mapEvent');
 
-async function doUpdate(_id, updatedEvent) {
+async function doUpdate(_id, updatedEvent, clientId) {
     let db = await Mongo.getDB();
-    let query = { _id }; 
+    let query = { _id, clientId }; 
     let sort = [];
     let update = updatedEvent;
     let options = { new: true };
@@ -14,10 +14,10 @@ async function doUpdate(_id, updatedEvent) {
     return dbRes.value;
 }
 
-async function updateEvent(_id, event) {
+async function updateEvent(_id, event, clientId) {
     let updatedEvent = mapEvent(event, _id);
     let result = validateEvent(updatedEvent);
-    return result.errors.length ? Promise.reject(result.errors) : doUpdate(_id, updatedEvent);
+    return result.errors.length ? Promise.reject(result.errors) : doUpdate(_id, updatedEvent, clientId);
 }
 
 module.exports = updateEvent;

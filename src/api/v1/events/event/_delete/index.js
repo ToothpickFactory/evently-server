@@ -7,10 +7,10 @@ module.exports = (app) => {
 
 	app.delete('/events/:id', (req, res) => {
 		let id = req.params.id;
-		EventsModule.deleteEvent(id)
+		let clientId = req.auth._id;
+		EventsModule.deleteEvent(id, clientId)
 			.then(() => res.send())
 			.catch(err => {
-				console.log(err)
 				errRes(err, res)
 			})
 	});

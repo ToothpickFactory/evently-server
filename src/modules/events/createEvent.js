@@ -4,8 +4,9 @@ const validateEvent = require(appRootDir + "/src/schemas/event/validator");
 const Mongo         = require(appRootDir + '/src/connections/mongo');
 const mapEvent      = require('./mapEvent');
 
-module.exports = async function(event){
+module.exports = async function(event, clientId){
     let db = await Mongo.getDB();
+    event.clientId = clientId;
     let newEvent = mapEvent(event);
     let result = validateEvent(newEvent);
     if( result.errors.length ){

@@ -1,15 +1,18 @@
 const appRootDir	= require('app-root-dir').get();
 const Mongo       = require(appRootDir + '/src/connections/mongo');
 
-async function getEvents(rawQuery = {}){
-  let query = queryBuilder(rawQuery);
+async function getEvents(rawQuery = {}, clientId){
+  let query = queryBuilder(rawQuery, clientId);
   let db = await Mongo.getDB();
   let documents = await db.collection('events').find(query).toArray();
   return documents;
 }
 
-function queryBuilder(rawQuery){
+function queryBuilder(rawQuery, clientId){
   let query = {};
+
+  query.clientId = clientId;
+
   if(rawQuery.rangeStart){
     if(!query.startTime) query.startTime = {};
     query.startTime.$gt = rawQuery.rangeStart;

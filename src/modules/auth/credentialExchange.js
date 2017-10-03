@@ -17,7 +17,7 @@ async function credentialExchange (email, password) {
 	return db.collection('accounts').findOne(account, {_id: 1})
 		.then(dbRes => {
 			if(!dbRes) return Promise.reject(codes.userNotFound());
-			let token = jwt.sign(dbRes, config.jwt.key);
+			let token = jwt.sign(dbRes, config.jwt.key, { noTimestamp: true });
 			return {token};
 		})
 		.catch(err => {

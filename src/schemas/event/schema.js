@@ -13,14 +13,14 @@ const schema = {
 				"items": {
 					"type": "string",
 					"minLength": 1,
-					"maxLength": 25
+					"maxLength": 50
 				}
 			},
 			"title": {
 				"type": "string",
 				"required": true,
 				"minLength": 4,
-				"maxLength": 25
+				"maxLength": 50
 			},
 			"slots": {
 				"type": "number",
@@ -45,7 +45,7 @@ const schema = {
 			"webhoook": {
 				"type": "string",
 				"minLength": 1,
-				"maxLength": 25
+				"maxLength": 50
 			}
 	}
 }

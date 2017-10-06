@@ -11,7 +11,9 @@ async function getEvents(rawQuery = {}, clientId){
 function queryBuilder(rawQuery, clientId){
   let query = {};
 
-  query.clientId = clientId;
+  if(clientId){
+    query.clientId = clientId;
+  }
 
   if(rawQuery.rangeStart){
     if(!query.startTime) query.startTime = {};

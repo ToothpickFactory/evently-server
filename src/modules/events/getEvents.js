@@ -17,12 +17,12 @@ function queryBuilder(rawQuery, clientId){
 
   if(rawQuery.rangeStart){
     if(!query.startTime) query.startTime = {};
-    query.startTime.$gt = rawQuery.rangeStart;
+    query.startTime.$gt = Number(rawQuery.rangeStart);
   }
 
   if(rawQuery.rangeEnd){
     if(!query.startTime) query.startTime = {};
-    query.startTime.$lt = rawQuery.rangeEnd;
+    query.startTime.$lt = Number(rawQuery.rangeEnd);
   }
 
   if(rawQuery.tags){
